@@ -11,7 +11,24 @@ export default {
     },
 
     methods: { 
-        
+        pushPost() {
+
+            const params = {
+                text: this.newPostText
+            };
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            };
+
+            axios.post('http://localhost/php-todo-list-json/back-end/pushPost.php', params, config)
+                .then(res => {
+
+                    this.posts = res.data;
+                    this.newPostText = "";
+                }).catch(err => console.log(err));
+        },
     },
 
     mounted() { 
@@ -20,7 +37,6 @@ export default {
         .then(res => {
 
             this.posts = res.data;
-            console.log(this.posts);
 
         }).catch(err => console.log(err));
     }
@@ -30,8 +46,9 @@ export default {
 </script>
 
 <template>
-    <h2>Compiti:{{ posts.length }}</h2>
+    <h2>Compiti: {{ posts.length }}</h2>
     <h3>Aggiungi un nuovo compito</h3>
+
     <form @submit.prevent="pushPost">
         <input type="text" name="text" v-model="newPostText"> 
         <input type="submit" value="AGGIUNGI">
