@@ -46,6 +46,25 @@ export default {
             })
             .catch(err => console.log(err));
         },
+
+        togglePost(index) {
+
+            const params = {
+                index: index
+            };
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            };
+
+            axios.post("http://localhost/php-todo-list-json/back-end/togglePost.php", params, config)
+            .then(res => {
+
+                this.posts = res.data;
+            })
+            .catch(err => console.log(err));
+        },
     },
 
     mounted() { 
@@ -76,7 +95,17 @@ export default {
             :key="index"
             style="margin-bottom: 10px;"
         >
-            {{ post.text }}
+            <div
+                @click="togglePost(index)"
+                style="display: inline-block;"
+            >
+                <del v-if="post.completed">
+                    {{ post.text }}
+                </del>
+                <span v-else>
+                    {{ post.text }}
+                </span>
+            </div>
             
             <button
                 @click="deletePost(index)"
