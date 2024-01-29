@@ -29,6 +29,23 @@ export default {
                     this.newPostText = "";
                 }).catch(err => console.log(err));
         },
+
+        deletePost(index) {
+
+            const params = {
+                params: {
+
+                    index: index
+                }
+            };
+
+            axios.get("http://localhost/php-todo-list-json/back-end/deletePost.php", params)
+            .then(res => {
+
+                this.posts = res.data;
+            })
+            .catch(err => console.log(err));
+        },
     },
 
     mounted() { 
@@ -53,13 +70,18 @@ export default {
         <input type="text" name="text" v-model="newPostText"> 
         <input type="submit" value="AGGIUNGI">
     </form>
-    <ul>
+    <ul >
         <li
             v-for="(post, index) in posts"
             :key="index"
+            style="margin-bottom: 10px;"
         >
             {{ post.text }}
-            <br>
+            
+            <button
+                @click="deletePost(index)"
+                style="padding:5px 10px; margin-left:20px;"
+            >X</button>
         </li>
     </ul>
 </template>

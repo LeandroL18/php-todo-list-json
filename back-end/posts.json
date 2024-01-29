@@ -1,5 +1,1 @@
-[
-    {"text":"a","completed":false},
-    {"text":"b","completed":false},
-    {"text":"c","completed":false}
-]
+[{"text":"Lavare la biancheria ","completed":false},{"text":"Stendere la biancheria","completed":false},{"text":"Stirare la biancheria","completed":false}]
